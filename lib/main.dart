@@ -1,26 +1,78 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:krainet/data/initilizer/storage.dart';
+import 'package:krainet/data/initilizer/storage123.dart';
+import 'package:krainet/data/repository/auth_repository.dart';
+import 'package:krainet/data/repository/storage_repository.dart';
+import 'package:krainet/firebase_options.dart';
 import 'package:krainet/l10n/l10n.dart';
+import 'package:krainet/presentations/bloc/auth_bloc/auth_bloc.dart';
 import 'package:krainet/presentations/navigation/navigation.dart';
 import 'package:krainet/utils/theme.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  runApp(const TaskOrganizer());
+
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+
+  final authRepository = AuthRepository();
+  await authRepository.user.first;
+  final todosApi = Storage(plugin: FirebaseFirestore.instance);
+  final storageRepository = StorageRepository(storageData: todosApi);
+
+  runApp(
+    TaskOrganizer(
+      authRepository: authRepository,
+      storageRepository: storageRepository,
+    ),
+  );
 }
 
 class TaskOrganizer extends StatelessWidget {
-  const TaskOrganizer({super.key});
+  const TaskOrganizer({
+    required AuthRepository authRepository,
+    required StorageRepository storageRepository,
+    super.key,
+  })  : _authRepository = authRepository,
+        _storageRepository = storageRepository;
+
+  final AuthRepository _authRepository;
+  final StorageRepository _storageRepository;
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp.router(
-      theme: AppTheme.light,
-      darkTheme: AppTheme.dark,
-      debugShowCheckedModeBanner: false,
-      localizationsDelegates: AppLocalizations.localizationsDelegates,
-      supportedLocales: AppLocalizations.supportedLocales,
-      title: 'Organizer',
-      routerConfig: router,
+    return MultiRepositoryProvider(
+      providers: [
+        RepositoryProvider.value(
+          value: _authRepository,
+        ),
+        RepositoryProvider.value(
+          value: _storageRepository,
+        ),
+      ],
+      child: BlocProvider(
+        create: (context) => AuthBloc(authRepository: _authRepository),
+        child: BlocListener<AuthBloc, AuthState>(
+          listenWhen: (previous, current) => previous != current,
+          listener: (context, state) {
+            router.refresh();
+          },
+          child: MaterialApp.router(
+            theme: AppTheme.light,
+            darkTheme: AppTheme.dark,
+            debugShowCheckedModeBanner: false,
+            localizationsDelegates: AppLocalizations.localizationsDelegates,
+            supportedLocales: const [Locale('ru')],
+            title: 'Organizer',
+            routerConfig: router,
+          ),
+        ),
+      ),
     );
   }
 }
