@@ -13,6 +13,4 @@ class StorageRepository {
   Future<void> saveTask(Task task) => _storageData.saveTask(task);
 
   Future<void> deleteTask(Task task) => _storageData.deleteTask(task);
-
-  Future<int> clearCompleted() => _storageData.clearCompleted();
 }

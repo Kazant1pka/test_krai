@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:krainet/domain/tasks_sort.dart';
 import 'package:krainet/l10n/l10n.dart';
 import 'package:krainet/presentations/bloc/task_overview_bloc/tasks_overview_bloc.dart';
-
-enum TasksOverviewOption { comingDays, notSoon }
 
 class TasksSort extends StatelessWidget {
   const TasksSort({super.key});
@@ -12,37 +11,26 @@ class TasksSort extends StatelessWidget {
   Widget build(BuildContext context) {
     final l10n = context.l10n;
 
-    final todos = context.select((TasksOverviewBloc bloc) => bloc.state.tasks);
-    final hasTodos = todos.isNotEmpty;
-    // final completedTodosAmount =
-    //     todos.where((element) => element.isCompleted).length;
+    final activeSort =
+        context.select((TasksOverviewBloc bloc) => bloc.state.sort);
 
-    return PopupMenuButton<TasksOverviewOption>(
+    return PopupMenuButton<TasksViewSort>(
       shape: const ContinuousRectangleBorder(
         borderRadius: BorderRadius.all(Radius.circular(16)),
       ),
+      initialValue: activeSort,
       tooltip: l10n.taskSortTooltip,
       onSelected: (value) {
-        switch (value) {
-          case TasksOverviewOption.comingDays:
-          // context
-          //     .read<TasksOverviewBloc>()
-          //     .add();
-          case TasksOverviewOption.notSoon:
-          // context
-          //     .read<TasksOverviewBloc>()
-          //     .add();
-        }
+        context.read<TasksOverviewBloc>().add(TasksSortChanged(value));
       },
       itemBuilder: (context) {
         return [
           PopupMenuItem(
-            value: TasksOverviewOption.comingDays,
-            enabled: hasTodos,
+            value: TasksViewSort.comingDays,
             child: Text(l10n.sortComingDays),
           ),
           PopupMenuItem(
-            value: TasksOverviewOption.notSoon,
+            value: TasksViewSort.notSoon,
             child: Text(l10n.sortNotComingDays),
           ),
         ];

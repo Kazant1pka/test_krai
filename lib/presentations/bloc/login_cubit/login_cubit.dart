@@ -3,6 +3,7 @@ import 'package:equatable/equatable.dart';
 import 'package:formz/formz.dart';
 import 'package:krainet/data/repository/auth_repository.dart';
 import 'package:krainet/utils/email.dart';
+import 'package:krainet/utils/error_handler.dart';
 import 'package:krainet/utils/password.dart';
 
 part 'login_state.dart';

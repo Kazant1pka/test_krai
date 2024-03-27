@@ -50,6 +50,11 @@ final class TasksFilterChanged extends TasksOverviewEvent {
   List<Object> get props => [filter];
 }
 
-final class TasksClearCompletedRequested extends TasksOverviewEvent {
-  const TasksClearCompletedRequested();
+final class TasksSortChanged extends TasksOverviewEvent {
+  const TasksSortChanged(this.sort);
+
+  final TasksViewSort sort;
+
+  @override
+  List<Object> get props => [sort];
 }

@@ -3,6 +3,7 @@ import 'package:equatable/equatable.dart';
 import 'package:krainet/data/repository/storage_repository.dart';
 import 'package:krainet/domain/task.dart';
 import 'package:krainet/domain/tasks_filter.dart';
+import 'package:krainet/domain/tasks_sort.dart';
 
 part 'tasks_overview_event.dart';
 part 'tasks_overview_state.dart';
@@ -15,7 +16,7 @@ class TasksOverviewBloc extends Bloc<TasksOverviewEvent, TasksOverviewState> {
     on<TasksCompletionToggled>(_onTaskCompletionToggled);
     on<TaskDeleted>(_onTaskDeleted);
     on<TasksFilterChanged>(_onFilterChanged);
-    on<TasksClearCompletedRequested>(_onClearCompletedRequested);
+    on<TasksSortChanged>(_onSortChanged);
   }
 
   final StorageRepository _storageRepository;
@@ -70,10 +71,10 @@ class TasksOverviewBloc extends Bloc<TasksOverviewEvent, TasksOverviewState> {
     emit(state.copyWith(filter: () => event.filter));
   }
 
-  Future<void> _onClearCompletedRequested(
-    TasksClearCompletedRequested event,
+  Future<void> _onSortChanged(
+    TasksSortChanged event,
     Emitter<TasksOverviewState> emit,
   ) async {
-    await _storageRepository.clearCompleted();
+    emit(state.copyWith(sort: () => event.sort));
   }
 }

@@ -28,5 +28,7 @@
   "signUpTitle":"Sign up",
   "signUpError":"Sign up failed",
   "confirmPassword":"Confirm password",
-  "errorConfirmPassword":"Passwords do not match"
+  "errorConfirmPassword":"Passwords do not match",
+  "light":"light",
+  "dark":"dark"
 }

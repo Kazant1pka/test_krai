@@ -28,5 +28,7 @@
   "signUpTitle":"Зарегистрироваться",
   "signUpError":"Ошибка регистрации",
   "confirmPassword":"Подтвердить пароль",
-  "errorConfirmPassword":"Пароль не совпадает"
+  "errorConfirmPassword":"Пароль не совпадает",
+  "light":"день",
+  "dark":"ночь"
 }

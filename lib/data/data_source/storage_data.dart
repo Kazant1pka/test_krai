@@ -8,8 +8,6 @@ abstract class StorageData {
   Future<void> saveTask(Task task);
 
   Future<void> deleteTask(Task task);
-
-  Future<int> clearCompleted();
 }
 
 class TaskNotFoundException implements Exception {}

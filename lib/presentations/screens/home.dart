@@ -3,20 +3,40 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:krainet/l10n/l10n.dart';
 import 'package:krainet/presentations/bloc/auth_bloc/auth_bloc.dart';
+import 'package:krainet/presentations/bloc/language_cubit/settings_cubit.dart';
 import 'package:krainet/presentations/navigation/navigation.dart';
 import 'package:krainet/presentations/screens/task_overview.dart';
 import 'package:krainet/utils/colors.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
   @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  @override
   Widget build(BuildContext context) {
     final user = context.select((AuthBloc bloc) => bloc.state.user);
+    var isLight = context.read<SettingsCubit>().state.isLight;
     return Scaffold(
       appBar: AppBar(
         title: Text(context.l10n.mainTitle),
         actions: <Widget>[
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8),
+            child: ElevatedButton(
+              onPressed: () {
+                setState(() {
+                  isLight = !isLight;
+                });
+                isLight = !isLight;
+                context.read<SettingsCubit>().setTheme(!isLight);
+              },
+              child: Text(isLight ? 'light' : 'dark'),
+            ),
+          ),
           IconButton(
             tooltip: user.email,
             icon: const Icon(Icons.exit_to_app),

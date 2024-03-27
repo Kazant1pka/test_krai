@@ -4,19 +4,41 @@ import 'package:formz/formz.dart';
 import 'package:go_router/go_router.dart';
 import 'package:krainet/data/repository/auth_repository.dart';
 import 'package:krainet/l10n/l10n.dart';
+import 'package:krainet/presentations/bloc/language_cubit/settings_cubit.dart';
 import 'package:krainet/presentations/bloc/login_cubit/login_cubit.dart';
 import 'package:krainet/presentations/navigation/navigation.dart';
 import 'package:krainet/presentations/widgets/input_field.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
 
   @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
+  @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
+    var isLight = context.read<SettingsCubit>().state.isLight;
     return Scaffold(
       appBar: AppBar(
         title: Text(l10n.loginTitle),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8),
+            child: ElevatedButton(
+              onPressed: () {
+                setState(() {
+                  isLight = !isLight;
+                });
+                isLight = !isLight;
+                context.read<SettingsCubit>().setTheme(!isLight);
+              },
+              child: Text(isLight ? 'light' : 'dark'),
+            ),
+          ),
+        ],
       ),
       body: Padding(
         padding: const EdgeInsets.all(8),

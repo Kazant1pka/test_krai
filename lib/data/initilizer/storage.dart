@@ -36,12 +36,4 @@ class Storage extends StorageData {
   Future<void> deleteTask(Task task) async {
     await _db.collection(task.userId).doc(task.id).delete();
   }
-
-  @override
-  Future<int> clearCompleted() async {
-    // final completedTodosAmount =
-    //     tasks.where((element) => element.isCompleted).length;
-    // tasks.removeWhere((element) => element.isCompleted);
-    return 1;
-  }
 }

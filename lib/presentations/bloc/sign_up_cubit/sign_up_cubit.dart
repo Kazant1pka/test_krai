@@ -4,6 +4,7 @@ import 'package:formz/formz.dart';
 import 'package:krainet/data/repository/auth_repository.dart';
 import 'package:krainet/utils/confirmed_password.dart';
 import 'package:krainet/utils/email.dart';
+import 'package:krainet/utils/error_handler.dart';
 import 'package:krainet/utils/password.dart';
 
 part 'sign_up_state.dart';
