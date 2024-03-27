@@ -2,6 +2,7 @@ import 'package:formz/formz.dart';
 
 enum ConfirmedPasswordValidationError { invalid }
 
+//Сущность для ввода подтверждения пароля и его валидация
 class ConfirmedPassword
     extends FormzInput<String, ConfirmedPasswordValidationError> {
   const ConfirmedPassword.pure({this.password = ''}) : super.pure('');

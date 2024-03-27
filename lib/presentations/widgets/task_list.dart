@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:krainet/domain/task.dart';
 
+//Виджет отображения списка задач
 class TaskList extends StatelessWidget {
   const TaskList({
     required this.task,
@@ -23,6 +24,7 @@ class TaskList extends StatelessWidget {
 
     return Dismissible(
       key: Key('todoListTile_${task.id}'),
+      //Удаление задачи
       onDismissed: onDismissed,
       direction: DismissDirection.endToStart,
       background: Container(
@@ -35,6 +37,7 @@ class TaskList extends StatelessWidget {
         ),
       ),
       child: ListTile(
+        //Редактирование задачи
         onTap: onTap,
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,

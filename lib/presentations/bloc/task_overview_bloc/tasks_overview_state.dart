@@ -2,6 +2,8 @@ part of 'tasks_overview_bloc.dart';
 
 enum TasksOverviewStatus { initial, loading, success, failure }
 
+//Состояние блока задач
+
 final class TasksOverviewState extends Equatable {
   const TasksOverviewState({
     this.status = TasksOverviewStatus.initial,
@@ -15,6 +17,7 @@ final class TasksOverviewState extends Equatable {
   final TasksViewFilter filter;
   final TasksViewSort sort;
 
+  //Получение отфильтрованного и отсортированного списка задач
   Iterable<Task> get filteredTasks => sort.applyAll(filter.applyAll(tasks));
 
   TasksOverviewState copyWith({

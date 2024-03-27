@@ -1,3 +1,5 @@
+//Отлов и валидация ошибок полученных с сервера
+
 class SignUpWithEmailAndPasswordFailure implements Exception {
   const SignUpWithEmailAndPasswordFailure([
     this.message = 'An unknown exception occured',

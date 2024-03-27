@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+//Виджет ввода поля задачи
 class InputField extends StatelessWidget {
   const InputField({
     required this.icon,

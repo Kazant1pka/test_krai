@@ -4,13 +4,14 @@ import 'package:krainet/domain/tasks_filter.dart';
 import 'package:krainet/l10n/l10n.dart';
 import 'package:krainet/presentations/bloc/task_overview_bloc/tasks_overview_bloc.dart';
 
+//Отображения способов фильтрации списка задач
 class TasksFilter extends StatelessWidget {
   const TasksFilter({super.key});
 
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
-
+    //Получения вида фильтрации
     final activeFilter =
         context.select((TasksOverviewBloc bloc) => bloc.state.filter);
 

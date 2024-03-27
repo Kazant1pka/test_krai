@@ -14,16 +14,16 @@ import 'package:krainet/utils/theme.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
+  //Инициализация Firebase в приложении
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-
+  //Инициализация пользовательского репозитория
   final authRepository = AuthRepository();
   await authRepository.user.first;
   final todosApi = Storage(plugin: FirebaseFirestore.instance);
   final storageRepository = StorageRepository(storageData: todosApi);
-
+  //Запуск приложения
   runApp(
     TaskOrganizer(
       authRepository: authRepository,
@@ -65,6 +65,7 @@ class TaskOrganizer extends StatelessWidget {
               child: BlocListener<AuthBloc, AuthState>(
                 listenWhen: (previous, current) => previous != current,
                 listener: (context, state) {
+                  //Обновление маршрутов приложения при входе
                   router.refresh();
                 },
                 child: MaterialApp.router(

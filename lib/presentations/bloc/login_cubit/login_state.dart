@@ -1,5 +1,6 @@
 part of 'login_cubit.dart';
 
+//Состояние форму авторизации
 final class LoginState extends Equatable {
   const LoginState({
     this.email = const Email.pure(),

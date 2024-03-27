@@ -8,6 +8,7 @@ import 'package:krainet/presentations/navigation/navigation.dart';
 import 'package:krainet/presentations/screens/task_overview.dart';
 import 'package:krainet/utils/colors.dart';
 
+//Начальный экран приложения авторизованного пользователя
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
@@ -26,6 +27,7 @@ class _HomeScreenState extends State<HomeScreen> {
         actions: <Widget>[
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8),
+            //Смена темы приложения
             child: ElevatedButton(
               onPressed: () {
                 setState(() {
@@ -37,6 +39,7 @@ class _HomeScreenState extends State<HomeScreen> {
               child: Text(isLight ? context.l10n.light : context.l10n.dark),
             ),
           ),
+          //Выход авторизованного пользователя
           IconButton(
             tooltip: user.email,
             icon: const Icon(Icons.exit_to_app),

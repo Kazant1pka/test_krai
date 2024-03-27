@@ -9,6 +9,7 @@ extension EditTaskStatusX on EditTaskStatus {
       ].contains(this);
 }
 
+//Общее состояние задачи
 final class EditTaskState extends Equatable {
   EditTaskState({
     this.status = EditTaskStatus.initial,
@@ -24,6 +25,7 @@ final class EditTaskState extends Equatable {
   final String description;
   final DateTime endsTask;
 
+  //Получение данных о том, что это новая задача или редактивание старой
   bool get isNewTask => initialTask == null;
 
   EditTaskState copyWith({

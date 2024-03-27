@@ -8,6 +8,7 @@ import 'package:krainet/domain/tasks_sort.dart';
 part 'tasks_overview_event.dart';
 part 'tasks_overview_state.dart';
 
+//Блок задач
 class TasksOverviewBloc extends Bloc<TasksOverviewEvent, TasksOverviewState> {
   TasksOverviewBloc({required StorageRepository storageRepository})
       : _storageRepository = storageRepository,
@@ -20,7 +21,7 @@ class TasksOverviewBloc extends Bloc<TasksOverviewEvent, TasksOverviewState> {
   }
 
   final StorageRepository _storageRepository;
-
+  //Метод получения задач авторизованного пользователя
   Future<void> _onSubscriptionRequested(
     TasksRequested event,
     Emitter<TasksOverviewState> emit,
@@ -39,6 +40,7 @@ class TasksOverviewBloc extends Bloc<TasksOverviewEvent, TasksOverviewState> {
     );
   }
 
+  //Метод выполнения задачи пользователем
   Future<void> _onTaskCompletionToggled(
     TasksCompletionToggled event,
     Emitter<TasksOverviewState> emit,
@@ -57,6 +59,7 @@ class TasksOverviewBloc extends Bloc<TasksOverviewEvent, TasksOverviewState> {
     await _storageRepository.saveTask(task);
   }
 
+  //Метод удаления задачи авторизованного пользователя
   Future<void> _onTaskDeleted(
     TaskDeleted event,
     Emitter<TasksOverviewState> emit,
@@ -64,6 +67,7 @@ class TasksOverviewBloc extends Bloc<TasksOverviewEvent, TasksOverviewState> {
     await _storageRepository.deleteTask(event.task);
   }
 
+  //Метод фильтрации задач авторизованного пользователя
   Future<void> _onFilterChanged(
     TasksFilterChanged event,
     Emitter<TasksOverviewState> emit,
@@ -71,6 +75,7 @@ class TasksOverviewBloc extends Bloc<TasksOverviewEvent, TasksOverviewState> {
     emit(state.copyWith(filter: () => event.filter));
   }
 
+//Метод сортровки задач авторизованного пользователя
   Future<void> _onSortChanged(
     TasksSortChanged event,
     Emitter<TasksOverviewState> emit,

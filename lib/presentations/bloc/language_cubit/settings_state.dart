@@ -7,8 +7,9 @@ final class SettingsState extends Equatable {
     this.lang = LangStatus.ru,
     this.isLight = true,
   });
-
+  //Язык приложения
   final LangStatus lang;
+  //Тема приложения
   final bool isLight;
 
   @override

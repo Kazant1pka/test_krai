@@ -6,6 +6,7 @@ import 'package:krainet/domain/task.dart';
 part 'edit_task_event.dart';
 part 'edit_task_state.dart';
 
+//Блок изменения или создания задачи
 class EditTaskBloc extends Bloc<EditTaskEvent, EditTaskState> {
   EditTaskBloc({
     required StorageRepository storageRepository,
@@ -24,7 +25,7 @@ class EditTaskBloc extends Bloc<EditTaskEvent, EditTaskState> {
     on<EditDateChanged>(_onDateChanged);
     on<EditTaskSubmitted>(_onSubmitted);
   }
-
+  //Метод, изменяющий название задачи
   void _onTitleChanged(
     EditTitleChanged event,
     Emitter<EditTaskState> emit,
@@ -32,6 +33,7 @@ class EditTaskBloc extends Bloc<EditTaskEvent, EditTaskState> {
     emit(state.copyWith(title: event.title));
   }
 
+  //Метод, изменяющий описание задачи
   void _onDescriptionChanged(
     EditDescriptionChanged event,
     Emitter<EditTaskState> emit,
@@ -39,6 +41,7 @@ class EditTaskBloc extends Bloc<EditTaskEvent, EditTaskState> {
     emit(state.copyWith(description: event.description));
   }
 
+  //Метод, изменяющий время задачи
   void _onDateChanged(
     EditDateChanged event,
     Emitter<EditTaskState> emit,
@@ -46,6 +49,7 @@ class EditTaskBloc extends Bloc<EditTaskEvent, EditTaskState> {
     emit(state.copyWith(endsTask: event.date));
   }
 
+  //Метод, сохраняющий задачу и отправляющий ее в базу данных
   Future<void> _onSubmitted(
     EditTaskSubmitted event,
     Emitter<EditTaskState> emit,

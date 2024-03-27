@@ -9,6 +9,7 @@ import 'package:krainet/presentations/bloc/login_cubit/login_cubit.dart';
 import 'package:krainet/presentations/navigation/navigation.dart';
 import 'package:krainet/presentations/widgets/input_field.dart';
 
+//Экран авторизации
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
 
@@ -27,6 +28,7 @@ class _LoginScreenState extends State<LoginScreen> {
         actions: [
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8),
+            //Смена темы приложения
             child: ElevatedButton(
               onPressed: () {
                 setState(() {
@@ -46,6 +48,7 @@ class _LoginScreenState extends State<LoginScreen> {
           create: (_) => LoginCubit(context.read<AuthRepository>()),
           child: BlocConsumer<LoginCubit, LoginState>(
             listener: (context, state) {
+              //Обработка ошибок
               if (state.status.isFailure) {
                 ScaffoldMessenger.of(context)
                   ..hideCurrentSnackBar()
@@ -111,11 +114,13 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 }
 
+//Кнопка авторизации
 class _LoginButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<LoginCubit, LoginState>(
       builder: (context, state) {
+        //Првоерка статуса
         return state.status.isInProgress
             ? const CircularProgressIndicator()
             : ElevatedButton(
@@ -139,6 +144,7 @@ class _LoginButton extends StatelessWidget {
   }
 }
 
+//Переход на экран регистрации
 class _SignUpButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {

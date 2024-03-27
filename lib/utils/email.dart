@@ -2,6 +2,7 @@ import 'package:formz/formz.dart';
 
 enum EmailValidationError { invalid }
 
+//Сущность для ввода почты и ее валидация
 class Email extends FormzInput<String, EmailValidationError> {
   const Email.pure() : super.pure('');
 

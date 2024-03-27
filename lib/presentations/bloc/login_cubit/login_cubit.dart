@@ -12,7 +12,7 @@ class LoginCubit extends Cubit<LoginState> {
   LoginCubit(this._authenticationRepository) : super(const LoginState());
 
   final AuthRepository _authenticationRepository;
-
+  //Валиация ввода почты и сохранение ее в общий блок
   void emailChanged(String value) {
     final email = Email.dirty(value);
     emit(
@@ -23,6 +23,7 @@ class LoginCubit extends Cubit<LoginState> {
     );
   }
 
+  //Валиация ввода пароля и сохранение его в общий блок
   void passwordChanged(String value) {
     final password = Password.dirty(value);
     emit(
@@ -33,7 +34,9 @@ class LoginCubit extends Cubit<LoginState> {
     );
   }
 
+  //Метод входа по почте и паролю
   Future<void> logInWithCredentials() async {
+    //Проверка на валидация
     if (!state.isValid) return;
     emit(state.copyWith(status: FormzSubmissionStatus.inProgress));
     try {

@@ -8,6 +8,7 @@ import 'package:krainet/presentations/bloc/sign_up_cubit/sign_up_cubit.dart';
 import 'package:krainet/presentations/navigation/navigation.dart';
 import 'package:krainet/presentations/widgets/input_field.dart';
 
+//Экран регистрации
 class SignUpPage extends StatelessWidget {
   const SignUpPage({super.key});
 
@@ -27,6 +28,7 @@ class SignUpPage extends StatelessWidget {
         child: BlocProvider<SignUpCubit>(
           create: (context) => SignUpCubit(context.read<AuthRepository>()),
           child: BlocListener<SignUpCubit, SignUpState>(
+            //Прослушка статуса экрана
             listener: (context, state) {
               if (state.status.isSuccess) {
                 context.go(Routes.login);
@@ -132,6 +134,7 @@ class SignUpPage extends StatelessWidget {
   }
 }
 
+//Кнопка регистрации
 class _SignUpButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {

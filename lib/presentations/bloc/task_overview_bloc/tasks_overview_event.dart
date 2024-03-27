@@ -7,15 +7,17 @@ sealed class TasksOverviewEvent extends Equatable {
   List<Object> get props => [];
 }
 
+//Событие запроса для получения задач пользователя
 final class TasksRequested extends TasksOverviewEvent {
   const TasksRequested(this.uid);
-
+  //id пользователя
   final String uid;
 
   @override
   List<Object> get props => [uid];
 }
 
+//Событие при выполнение задачи пользователем
 final class TasksCompletionToggled extends TasksOverviewEvent {
   const TasksCompletionToggled({
     required this.uid,
@@ -31,6 +33,7 @@ final class TasksCompletionToggled extends TasksOverviewEvent {
   List<Object> get props => [task, isCompleted, uid];
 }
 
+//Событие при удалении задачи
 final class TaskDeleted extends TasksOverviewEvent {
   const TaskDeleted(this.task, this.uid);
 
@@ -41,6 +44,7 @@ final class TaskDeleted extends TasksOverviewEvent {
   List<Object> get props => [task, uid];
 }
 
+//Событие фильтрации задач пользователя
 final class TasksFilterChanged extends TasksOverviewEvent {
   const TasksFilterChanged(this.filter);
 
@@ -50,6 +54,7 @@ final class TasksFilterChanged extends TasksOverviewEvent {
   List<Object> get props => [filter];
 }
 
+//Событие сортировки задач пользователя
 final class TasksSortChanged extends TasksOverviewEvent {
   const TasksSortChanged(this.sort);
 

@@ -13,7 +13,7 @@ class SignUpCubit extends Cubit<SignUpState> {
   SignUpCubit(this._authenticationRepository) : super(const SignUpState());
 
   final AuthRepository _authenticationRepository;
-
+  //Валиация ввода почты и сохранение ее в общий блок
   void emailChanged(String value) {
     final email = Email.dirty(value);
     emit(
@@ -25,6 +25,7 @@ class SignUpCubit extends Cubit<SignUpState> {
     );
   }
 
+  //Валиация ввода пароля и сохранение его в общий блок
   void passwordChanged(String value) {
     final password = Password.dirty(value);
     final confirmedPassword = ConfirmedPassword.dirty(
@@ -39,6 +40,7 @@ class SignUpCubit extends Cubit<SignUpState> {
     );
   }
 
+  //Валиация повторного ввода пароля и сохранение его в общий блок
   void onConfirmPasswordChanged(String value) {
     final confirmedPassword =
         ConfirmedPassword.dirty(password: state.password.value, value: value);
@@ -51,6 +53,7 @@ class SignUpCubit extends Cubit<SignUpState> {
     );
   }
 
+  //Метод регистрации по почте и паролю
   Future<void> signUpFromSubmitted() async {
     if (!state.isValid) return;
     emit(state.copyWith(status: FormzSubmissionStatus.inProgress));

@@ -12,9 +12,10 @@ import 'package:krainet/presentations/navigation/navigation.dart';
 import 'package:krainet/presentations/widgets/input_field.dart';
 import 'package:krainet/utils/colors.dart';
 
+//Экран создания и редактирования задач
 class CreateOrEditTask extends StatefulWidget {
   const CreateOrEditTask({this.initialTask, super.key});
-
+  //Задача для редактирования
   final Task? initialTask;
 
   @override
@@ -94,12 +95,7 @@ class _CreateOrEditTaskState extends State<CreateOrEditTask> {
                             return null;
                           },
                           hintText: currentState.initialTask?.title ?? '',
-                          formatter: [
-                            LengthLimitingTextInputFormatter(50),
-                            FilteringTextInputFormatter.allow(
-                              RegExp(r'[a-zA-Z0-9\s]'),
-                            ),
-                          ],
+                          formatter: [LengthLimitingTextInputFormatter(50)],
                         ),
                         const SizedBox(height: 16),
                         InputField(
@@ -132,6 +128,7 @@ class _CreateOrEditTaskState extends State<CreateOrEditTask> {
   }
 }
 
+//Виджет для выбора даты и времени
 class _DateField extends StatefulWidget {
   const _DateField();
 
@@ -145,19 +142,21 @@ class _DateFieldState extends State<_DateField> {
     final l10n = context.l10n;
     final state = context.watch<EditTaskBloc>().state;
     var currentDate = state.endsTask;
+    //Получение удобочитаемого формата
     String getDate() => DateFormat('dd/MM/yyyy HH:mm').format(currentDate);
     final dateController = TextEditingController(
       text: getDate(),
     );
-
+    //Пикер для выбора даты и времени
     Future<DateTime> selectDate(BuildContext context) async {
+      //Выбор даты
       final selectedDate = await showDatePicker(
         context: context,
         initialDate: state.initialTask?.endsTask ?? DateTime.now(),
         firstDate: DateTime(2020),
         lastDate: DateTime(2025),
       );
-
+      //Выбор времени
       if (!context.mounted) return currentDate;
       final selectedTime = await showTimePicker(
         context: context,

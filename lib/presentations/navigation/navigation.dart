@@ -7,6 +7,7 @@ import 'package:krainet/presentations/screens/home.dart';
 import 'package:krainet/presentations/screens/login.dart';
 import 'package:krainet/presentations/screens/sign_up.dart';
 
+//Список маршрутов для навигации
 abstract class Routes {
   static const empty = '/';
   static const login = '/login';
@@ -14,9 +15,9 @@ abstract class Routes {
   static const home = '/home';
   static const create = '/create';
   static const edit = '/edit';
-  static const authCheck = '/authCheck';
 }
 
+//Навигация приложения
 final router = GoRouter(
   initialLocation: Routes.home,
   routes: [
@@ -53,11 +54,13 @@ final router = GoRouter(
     GoRoute(
       path: Routes.edit,
       builder: (context, state) {
+        //Задача для редактирования
         final editTask = state.extra as Task?;
         return CreateOrEditTask(initialTask: editTask);
       },
     ),
   ],
+  //Перенаправление при авторизации и выходе пользователей
   redirect: (context, state) {
     final logIn = state.matchedLocation == Routes.login;
     final home = state.matchedLocation == Routes.home;
@@ -71,7 +74,6 @@ final router = GoRouter(
     if (home) {
       return Routes.login;
     }
-
     return null;
   },
 );

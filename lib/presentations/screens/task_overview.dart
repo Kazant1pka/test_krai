@@ -10,6 +10,7 @@ import 'package:krainet/presentations/widgets/task_list.dart';
 import 'package:krainet/presentations/widgets/tasks_filter.dart';
 import 'package:krainet/presentations/widgets/tasks_sort.dart';
 
+//Экран отображения задач
 class TaskOverviewPage extends StatefulWidget {
   const TaskOverviewPage({super.key});
 
@@ -28,6 +29,7 @@ class _TaskOverviewPageState extends State<TaskOverviewPage> {
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: Theme.of(context).colorScheme.background,
+          //Кнопки фильтрации и сортровки
           actions: const [
             TasksFilter(),
             TasksSort(),
@@ -73,6 +75,7 @@ class _TaskOverviewPageState extends State<TaskOverviewPage> {
                     for (final task in state.filteredTasks)
                       TaskList(
                         task: task,
+                        //Действие выполнения задачи
                         onToggleCompleted: (isCompleted) {
                           context.read<TasksOverviewBloc>().add(
                                 TasksCompletionToggled(

@@ -2,6 +2,7 @@ part of 'auth_bloc.dart';
 
 enum AuthStatus { authenticated, unauthenticated }
 
+//Состояние блока авторизации(авторизован и не авторизован)
 final class AuthState extends Equatable {
   const AuthState.unauthenticated()
       : this._(status: AuthStatus.unauthenticated);
