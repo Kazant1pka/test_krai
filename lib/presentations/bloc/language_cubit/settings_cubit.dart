@@ -9,5 +9,6 @@ class SettingsCubit extends Cubit<SettingsState> {
   void setLang(LangStatus changedLang) =>
       emit(SettingsState(lang: changedLang));
 
-  void setTheme(bool isLight) => emit(SettingsState(isLight: isLight));
+  void setTheme({required bool isLight}) =>
+      emit(SettingsState(isLight: isLight));
 }

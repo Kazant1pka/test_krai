@@ -1,5 +1,7 @@
 import 'package:krainet/domain/task.dart';
 
+//Расширение для фильтрации списка задач по их выполненности
+
 enum TasksViewFilter { all, activeonly, completedOnle }
 
 extension TasksViewFilterX on TasksViewFilter {

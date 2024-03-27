@@ -34,5 +34,3 @@ final class LoginState extends Equatable {
     );
   }
 }
-
-final class LoginInitial extends LoginState {}

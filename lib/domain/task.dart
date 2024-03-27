@@ -1,8 +1,8 @@
-import 'dart:math';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
+import 'package:uuid/uuid.dart';
 
+//Класс задач
 class Task extends Equatable {
   Task({
     required this.title,
@@ -12,8 +12,12 @@ class Task extends Equatable {
     this.isCompleted = false,
     DateTime? endsTask,
   })  : endsTask = endsTask ?? DateTime.now(),
-        id = id ?? Random().nextInt(100).toString();
-
+        assert(
+          id == null || id.isNotEmpty,
+          'id must either be null or not empty',
+        ),
+        id = id ?? const Uuid().v4();
+  //Метод получения задачи из базы
   factory Task.fromJson(JsonMap json) => Task(
         title: json['title'] as String,
         id: json['id'] as String?,
@@ -29,7 +33,7 @@ class Task extends Equatable {
   final String description;
   final bool isCompleted;
   final DateTime endsTask;
-
+  //Метод получения объекта задачи без инициализации всех его полей
   Task copyWith({
     String? id,
     String? userId,
@@ -48,6 +52,7 @@ class Task extends Equatable {
     );
   }
 
+  //Метод конвертации задачи для сохранения её в базе данных
   Map<String, dynamic> _$TaskToJson(Task instance) => <String, dynamic>{
         'id': instance.id,
         'userId': instance.userId,

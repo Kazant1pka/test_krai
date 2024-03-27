@@ -10,11 +10,12 @@ class Storage extends StorageData {
   }
 
   FirebaseFirestore _db;
-
+  //Инициализация базы, если отсутствует изначальная инициализация
   void _init() {
     _db = FirebaseFirestore.instance;
   }
 
+  //Получения задач при помощи коллекций Firestore
   @override
   Future<List<Task>> getTasks(String id) async {
     var tasks = <Task>[];
@@ -27,11 +28,13 @@ class Storage extends StorageData {
     return tasks;
   }
 
+  //Сохранение задач при помощи коллекций Firestore
   @override
   Future<void> saveTask(Task task) async {
     await _db.collection(task.userId).doc(task.id).set(task.toJson());
   }
 
+  //Удаление задач при помощи коллекций Firestore
   @override
   Future<void> deleteTask(Task task) async {
     await _db.collection(task.userId).doc(task.id).delete();

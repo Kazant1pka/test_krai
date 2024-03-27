@@ -33,9 +33,9 @@ class _LoginScreenState extends State<LoginScreen> {
                   isLight = !isLight;
                 });
                 isLight = !isLight;
-                context.read<SettingsCubit>().setTheme(!isLight);
+                context.read<SettingsCubit>().setTheme(isLight: !isLight);
               },
-              child: Text(isLight ? 'light' : 'dark'),
+              child: Text(isLight ? l10n.light : l10n.dark),
             ),
           ),
         ],
@@ -44,7 +44,7 @@ class _LoginScreenState extends State<LoginScreen> {
         padding: const EdgeInsets.all(8),
         child: BlocProvider(
           create: (_) => LoginCubit(context.read<AuthRepository>()),
-          child: BlocListener<LoginCubit, LoginState>(
+          child: BlocConsumer<LoginCubit, LoginState>(
             listener: (context, state) {
               if (state.status.isFailure) {
                 ScaffoldMessenger.of(context)
@@ -56,57 +56,54 @@ class _LoginScreenState extends State<LoginScreen> {
                   );
               }
             },
-            child: Center(
-              child: BlocBuilder<LoginCubit, LoginState>(
-                buildWhen: (previous, current) => previous != current,
-                builder: (context, state) {
-                  return SingleChildScrollView(
-                    child: SizedBox(
-                      width: MediaQuery.of(context).size.width * 0.7,
-                      child: Column(
-                        children: [
-                          InputField(
-                            icon: Icons.email_outlined,
-                            initialValue: '',
-                            labelText: l10n.email,
-                            isEnabled: true,
-                            onChanged: (email) {
-                              context.read<LoginCubit>().emailChanged(email);
-                              return null;
-                            },
-                            hintText: l10n.emailHint,
-                            errorText: state.email.displayError != null
-                                ? l10n.emailError
-                                : null,
-                          ),
-                          const SizedBox(height: 8),
-                          InputField(
-                            icon: Icons.password,
-                            initialValue: '',
-                            labelText: l10n.password,
-                            isEnabled: true,
-                            onChanged: (password) {
-                              context
-                                  .read<LoginCubit>()
-                                  .passwordChanged(password);
-                              return null;
-                            },
-                            hintText: l10n.passwordHint,
-                            errorText: state.password.displayError != null
-                                ? l10n.passwordError
-                                : null,
-                          ),
-                          const SizedBox(height: 8),
-                          _LoginButton(),
-                          const SizedBox(height: 4),
-                          _SignUpButton(),
-                        ],
-                      ),
+            builder: (context, state) {
+              return Center(
+                child: SingleChildScrollView(
+                  child: SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.7,
+                    child: Column(
+                      children: [
+                        InputField(
+                          icon: Icons.email_outlined,
+                          initialValue: '',
+                          labelText: l10n.email,
+                          isEnabled: true,
+                          onChanged: (email) {
+                            context.read<LoginCubit>().emailChanged(email);
+                            return null;
+                          },
+                          hintText: l10n.emailHint,
+                          errorText: state.email.displayError != null
+                              ? l10n.emailError
+                              : null,
+                        ),
+                        const SizedBox(height: 8),
+                        InputField(
+                          icon: Icons.password,
+                          initialValue: '',
+                          labelText: l10n.password,
+                          isEnabled: true,
+                          onChanged: (password) {
+                            context
+                                .read<LoginCubit>()
+                                .passwordChanged(password);
+                            return null;
+                          },
+                          hintText: l10n.passwordHint,
+                          errorText: state.password.displayError != null
+                              ? l10n.passwordError
+                              : null,
+                        ),
+                        const SizedBox(height: 8),
+                        _LoginButton(),
+                        const SizedBox(height: 4),
+                        _SignUpButton(),
+                      ],
                     ),
-                  );
-                },
-              ),
-            ),
+                  ),
+                ),
+              );
+            },
           ),
         ),
       ),

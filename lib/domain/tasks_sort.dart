@@ -1,5 +1,7 @@
 import 'package:krainet/domain/task.dart';
 
+//Расширение для сортировки списка задач по их востребованности
+
 enum TasksViewSort { all, comingDays, notSoon }
 
 extension TasksViewFilterX on TasksViewSort {

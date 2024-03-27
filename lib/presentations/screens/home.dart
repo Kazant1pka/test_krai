@@ -32,9 +32,9 @@ class _HomeScreenState extends State<HomeScreen> {
                   isLight = !isLight;
                 });
                 isLight = !isLight;
-                context.read<SettingsCubit>().setTheme(!isLight);
+                context.read<SettingsCubit>().setTheme(isLight: !isLight);
               },
-              child: Text(isLight ? 'light' : 'dark'),
+              child: Text(isLight ? context.l10n.light : context.l10n.dark),
             ),
           ),
           IconButton(

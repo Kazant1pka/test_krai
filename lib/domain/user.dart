@@ -1,5 +1,7 @@
 import 'package:equatable/equatable.dart';
 
+//Класс пользователя, с методовами, которые отвечают за его существование
+
 class User extends Equatable {
   const User({
     this.id,

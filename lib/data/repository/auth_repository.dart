@@ -3,6 +3,7 @@ import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:krainet/domain/user.dart';
 import 'package:krainet/utils/error_handler.dart';
 
+//Класс авторизации приложения при помощи Firebase
 class AuthRepository {
   AuthRepository({
     firebase_auth.FirebaseAuth? firebaseAuth,
@@ -16,7 +17,7 @@ class AuthRepository {
   bool isWeb = kIsWeb;
 
   static const userCacheKey = '__user_cache_key__';
-
+  //Получение пользователя из Firebase
   Stream<User> get user {
     return _firebaseAuth.authStateChanges().map((user) {
       final currentUser = user == null ? User.empty : user.toUser;
@@ -25,10 +26,12 @@ class AuthRepository {
     });
   }
 
+  //Получение пользователя, если он был ранее закэширован
   User get currentUser {
     return _cacheClient.read<User>(key: userCacheKey) ?? User.empty;
   }
 
+  //Регистрация пользователя с помощью почты и пароля, проверка на ошибки
   Future<void> signUp({required String email, required String password}) async {
     try {
       await _firebaseAuth.createUserWithEmailAndPassword(
@@ -42,6 +45,7 @@ class AuthRepository {
     }
   }
 
+  //Авторизация пользователя с помощью почты и пароля, проверка на ошибки
   Future<void> logInWithEmailAndPassword({
     required String email,
     required String password,
@@ -58,6 +62,7 @@ class AuthRepository {
     }
   }
 
+  //Выход пользователя из системы
   Future<void> logOut() async {
     try {
       await Future.wait([

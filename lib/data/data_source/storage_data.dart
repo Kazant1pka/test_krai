@@ -1,5 +1,6 @@
 import 'package:krainet/domain/task.dart';
 
+//Класс на основе которого, будем обращаться к дазе данных
 abstract class StorageData {
   const StorageData();
 

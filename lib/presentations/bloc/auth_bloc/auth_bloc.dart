@@ -8,6 +8,7 @@ import 'package:krainet/domain/user.dart';
 part 'auth_event.dart';
 part 'auth_state.dart';
 
+//Блок отвечающий за авторизацию всего приложения к Firebase
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   AuthBloc({required AuthRepository authRepository})
       : _authRepository = authRepository,
@@ -25,6 +26,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final AuthRepository _authRepository;
   late final StreamSubscription<User> _userSubscription;
 
+  //Событие возникающие при смене авторизованного пользователя
   void _onUserChanged(AuthUserChanged event, Emitter<AuthState> emit) {
     emit(
       event.user.isNotEmpty
@@ -33,6 +35,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     );
   }
 
+  //Событие возникающие при отключении пользователя
   void _onLogoutRequested(AuthLogoutRequested event, Emitter<AuthState> emit) {
     unawaited(_authRepository.logOut());
   }
