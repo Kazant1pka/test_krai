@@ -13,6 +13,10 @@ import 'package:krainet/presentations/widgets/input_field.dart';
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
 
+  static const emailFieldKey = ValueKey('email');
+  static const passwordFieldKey = ValueKey('password');
+  static const loginButtonKey = ValueKey('button');
+
   @override
   State<LoginScreen> createState() => _LoginScreenState();
 }
@@ -67,6 +71,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     child: Column(
                       children: [
                         InputField(
+                          key: LoginScreen.emailFieldKey,
                           icon: Icons.email_outlined,
                           initialValue: '',
                           labelText: l10n.email,
@@ -82,6 +87,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                         const SizedBox(height: 8),
                         InputField(
+                          key: LoginScreen.passwordFieldKey,
                           icon: Icons.password,
                           initialValue: '',
                           labelText: l10n.password,
@@ -98,7 +104,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               : null,
                         ),
                         const SizedBox(height: 8),
-                        _LoginButton(),
+                        const _LoginButton(key: LoginScreen.loginButtonKey),
                         const SizedBox(height: 4),
                         _SignUpButton(),
                       ],
@@ -116,6 +122,8 @@ class _LoginScreenState extends State<LoginScreen> {
 
 //Кнопка авторизации
 class _LoginButton extends StatelessWidget {
+  const _LoginButton({super.key});
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<LoginCubit, LoginState>(
